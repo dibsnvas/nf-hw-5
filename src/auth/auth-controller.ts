@@ -33,10 +33,10 @@ class AuthController {
     }
   }
 
-  refreshToken = async (req: Request, res: Response): Promise<void> => {
+  refreshTokens = async (req: Request, res: Response): Promise<void> => {
     try {
       const { token } = req.body;
-      const result = await this.authService.refreshToken(token);
+      const result = await this.authService.refreshTokens(token);
       if (!result) {
         res.status(401).json({ message: 'Invalid or expired refresh token' });
         return;

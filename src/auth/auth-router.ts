@@ -1,3 +1,4 @@
+// src/auth/auth-router.ts
 import { Router } from 'express';
 import { authMiddleware } from '../middlewares/auth-middleware';
 import AuthController from './auth-controller';
@@ -10,7 +11,7 @@ const authController = new AuthController(authService);
 
 authRouter.post('/register', authController.registerUser);
 authRouter.post('/login', authController.loginUser);
-authRouter.post('/refresh-token', authController.refreshToken);
+authRouter.post('/refresh-token', authController.refreshTokens);
 
 // Example protected route
 authRouter.get('/protected', authMiddleware, (req, res) => {

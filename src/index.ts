@@ -1,23 +1,26 @@
-import 'dotenv/config';
 import express from 'express';
-import connectDB from './db';
-import globalRouter from './global-router';
-import { logger } from './logger';
+import mongoose from 'mongoose';
+import eventRouter from './events/event-router';  // Adjust the path as necessary
+import authRouter from './auth/auth-router';  // Adjust the path as necessary
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
 
-connectDB();
-
-app.use(logger);
+// Middleware
 app.use(express.json());
-app.use('/api/v1/',globalRouter);
 
+// Routes
+app.use('/api', eventRouter);
+app.use('/api', authRouter);
 
-app.get('/helloworld',(request,response) =>{
-  response.send("Hello World!");
-})
-
-app.listen(PORT, () => {
-  console.log(`Server runs at http://localhost:${PORT}`);
-});
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/events')
+  .then(() => {
+    console.log('Connected to MongoDB');
+    app.listen(port, () => {
+      console.log(`Server is running on http://localhost:${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB', error);
+  });

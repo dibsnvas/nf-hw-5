@@ -1,15 +1,11 @@
+// global-router.ts
 import { Router } from 'express';
-import authRouter from './auth/auth-router';
-import eventRouter from './events/event-router';
-// other routers can be imported here
 
 const globalRouter = Router();
 
-
-globalRouter.use(authRouter);
-globalRouter.use(eventRouter);
-
-
-// other routers can be added here
+// Define your routes here
+globalRouter.get('/test', (req, res) => {
+  res.send('API is working!');
+});
 
 export default globalRouter;
