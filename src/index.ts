@@ -5,7 +5,7 @@ import authRouter from './auth/auth-router';  // Adjust the path as necessary
 import connectDB from './db';
 
 const app = express();
-const port = 3000;
+const port =  process.env.PORT;
 
 connectDB()
 
@@ -16,6 +16,6 @@ app.use(express.json());
 app.use('/api', eventRouter);
 app.use('/api', authRouter);
 
-app.listen(8000, () => {
+app.listen(port, () => {
   console.log('Server started')
 })
